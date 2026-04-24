@@ -8,17 +8,20 @@ use App\Db\PdoFactory;
 use App\Http\Json;
 use App\Http\Request;
 use App\Http\Response;
+use App\I18n\Translator;
 use PDOException;
 
 final class MedicoController
 {
     private readonly MedicoService $service;
+    private readonly Translator $translator;
 
     public function __construct()
     {
         $pdo = PdoFactory::make();
         $repo = new MedicoRepository($pdo);
         $this->service = new MedicoService($repo);
+        $this->translator = new Translator();
     }
 
     public function index(Request $_req, array $_params = []): Response
@@ -71,13 +74,17 @@ final class MedicoController
             return Json::error(400, 'validation.body.invalid');
         }
 
+        $lang = Translator::detectLanguage($req->headers);
+
         try {
             $created = $this->service->create($payload);
-            return new Response("Médico criado com sucesso", 201, ['Content-Type' => 'text/plain']);
+            $message = $this->translator->translate('doctor.created', $lang);
+            return new Response($message, 201, ['Content-Type' => 'text/plain']);
         } catch (ValidationException $e) {
             return new Response(json_encode(['error' => $e->getMessage()]), 422, ['Content-Type' => 'application/json']);
         } catch (PDOException $e) {
-            return new Response(json_encode(['error' => 'Failed to create doctor']), 500, ['Content-Type' => 'application/json']);
+            $errorMessage = $this->translator->translate('doctor.create_failed', $lang);
+            return new Response(json_encode(['error' => $errorMessage]), 500, ['Content-Type' => 'application/json']);
         }
     }
 
