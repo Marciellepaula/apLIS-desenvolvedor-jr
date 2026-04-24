@@ -1,0 +1,27 @@
+export const messages = {
+  pt: {
+    "nav.doctors": "Médicos",
+    "nav.patients": "Pacientes",
+    "common.loading": "Carregando...",
+    "common.error": "Ocorreu um erro.",
+    "common.retry": "Tentar novamente",
+    "common.save": "Salvar",
+    "common.cancel": "Cancelar",
+    "common.create": "Cadastrar",
+    "common.list": "Listagem",
+    "doctor.title": "Médicos",
+    "doctor.create": "Cadastrar médico",
+    "doctor.list": "Lista de médicos",
+    "patient.title": "Pacientes",
+    "patient.create": "Cadastrar paciente",
+    "patient.list": "Lista de pacientes",
+    "form.nome": "Nome",
+    "form.crm": "CRM",
+    "form.ufcrm": "UF CRM",
+    "form.dataNascimento": "Data de nascimento",
+    "form.carteirinha": "Carteirinha",
+    "form.cpf": "CPF",
+    "toast.created": "Criado com sucesso",
+  },
+};
+
