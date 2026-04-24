@@ -22,13 +22,13 @@ export function PatientsPage() {
     [form]
   );
 
-  const listOp = useAsync(listPatients);
-  const createOp = useAsync(createPatient);
+  const { run: listRun, loading: listLoading, error: listError } = useAsync(listPatients);
+  const { run: createRun, loading: createLoading, error: createError } = useAsync(createPatient);
 
   const load = useCallback(async () => {
-    const res = await listOp.run();
+    const res = await listRun();
     setItems(res.data ?? []);
-  }, [listOp]);
+  }, [listRun]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -39,7 +39,7 @@ export function PatientsPage() {
     e.preventDefault();
     if (!canSubmit) return;
 
-    await createOp.run({
+    await createRun({
       ...form,
       dataNascimento: form.dataNascimento?.trim() ? form.dataNascimento : undefined,
       cpf: form.cpf.trim(),
@@ -49,8 +49,8 @@ export function PatientsPage() {
     await load();
   }
 
-  const isLoading = listOp.loading || createOp.loading;
-  const error = listOp.error || createOp.error;
+  const isLoading = listLoading || createLoading;
+  const error = listError || createError;
 
   return (
     <div className="stack">
@@ -133,7 +133,7 @@ export function PatientsPage() {
               <div>{it.cpf}</div>
             </div>
           ))}
-          {items.length === 0 && !listOp.loading ? (
+          {items.length === 0 && !listLoading ? (
             <div className="table__empty">Sem dados.</div>
           ) : null}
         </div>

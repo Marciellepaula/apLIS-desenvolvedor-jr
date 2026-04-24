@@ -16,13 +16,13 @@ export function DoctorsPage() {
     [form]
   );
 
-  const listOp = useAsync(listDoctors);
-  const createOp = useAsync(createDoctor);
+  const { run: listRun, loading: listLoading, error: listError } = useAsync(listDoctors);
+  const { run: createRun, loading: createLoading, error: createError } = useAsync(createDoctor);
 
   const load = useCallback(async () => {
-    const res = await listOp.run();
+    const res = await listRun();
     setItems(res.data ?? []);
-  }, [listOp]);
+  }, [listRun]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -32,13 +32,13 @@ export function DoctorsPage() {
   async function onSubmit(e) {
     e.preventDefault();
     if (!canSubmit) return;
-    await createOp.run({ ...form, UFCRM: form.UFCRM.toUpperCase() });
+    await createRun({ ...form, UFCRM: form.UFCRM.toUpperCase() });
     setForm({ nome: "", CRM: "", UFCRM: "" });
     await load();
   }
 
-  const isLoading = listOp.loading || createOp.loading;
-  const error = listOp.error || createOp.error;
+  const isLoading = listLoading || createLoading;
+  const error = listError || createError;
 
   return (
     <div className="stack">
@@ -110,7 +110,7 @@ export function DoctorsPage() {
               <div>{it.UFCRM}</div>
             </div>
           ))}
-          {items.length === 0 && !listOp.loading ? (
+          {items.length === 0 && !listLoading ? (
             <div className="table__empty">{t("common.loading") === "Carregando..." ? "Sem dados." : "—"}</div>
           ) : null}
         </div>

@@ -6,7 +6,7 @@ namespace App\Medicos;
 
 use PDO;
 
-final class MedicoRepository
+final class MedicoRepository implements MedicoRepositoryInterface
 {
     public function __construct(private readonly PDO $pdo)
     {

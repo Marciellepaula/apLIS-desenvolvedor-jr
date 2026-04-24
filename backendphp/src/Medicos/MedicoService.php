@@ -6,7 +6,7 @@ namespace App\Medicos;
 
 final class MedicoService
 {
-    public function __construct(private readonly MedicoRepository $repo)
+    public function __construct(private readonly MedicoRepositoryInterface $repo)
     {
     }
 
