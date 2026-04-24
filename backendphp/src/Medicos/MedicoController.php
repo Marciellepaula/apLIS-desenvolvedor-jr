@@ -24,10 +24,10 @@ final class MedicoController
     public function index(Request $_req, array $_params = []): Response
     {
         try {
-            $data = $this->service->list();
-            return Json::ok($data, 'doctor.listed');
+            $medicos = $this->service->list();
+            return new Response(json_encode($medicos), 200, ['Content-Type' => 'application/json']);
         } catch (PDOException $e) {
-            return Json::error(500, 'doctor.list_failed');
+            return new Response(json_encode(['error' => 'Failed to fetch doctors']), 500, ['Content-Type' => 'application/json']);
         }
     }
 
@@ -73,11 +73,11 @@ final class MedicoController
 
         try {
             $created = $this->service->create($payload);
-            return Json::created($created, 'doctor.created');
+            return new Response("Médico criado com sucesso", 201, ['Content-Type' => 'text/plain']);
         } catch (ValidationException $e) {
-            return Json::error(422, $e->getMessage(), null, ['errors' => $e->errors]);
+            return new Response(json_encode(['error' => $e->getMessage()]), 422, ['Content-Type' => 'application/json']);
         } catch (PDOException $e) {
-            return Json::error(500, 'doctor.create_failed');
+            return new Response(json_encode(['error' => 'Failed to create doctor']), 500, ['Content-Type' => 'application/json']);
         }
     }
 

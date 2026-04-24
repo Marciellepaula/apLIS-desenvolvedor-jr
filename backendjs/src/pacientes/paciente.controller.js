@@ -9,7 +9,7 @@ export class PacienteController {
   list = async (_req, res, next) => {
     try {
       const data = await this.service.list();
-      res.json(ok(data, "patient.listed"));
+      res.json(data);
     } catch (err) {
       next(err);
     }
@@ -18,7 +18,7 @@ export class PacienteController {
   create = async (req, res, next) => {
     try {
       const data = await this.service.create(req.validated.body);
-      res.status(201).json(created(data, "patient.created"));
+      res.status(201).send("Paciente criado com sucesso");
     } catch (err) {
       next(err);
     }
