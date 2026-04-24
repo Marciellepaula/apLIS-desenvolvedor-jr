@@ -116,26 +116,39 @@ export function PatientsPage() {
 
       <section className="card">
         <h2 className="card__title">{t("common.list")}</h2>
-        <div className="table">
-          <div className="table__head">
-            <div>ID</div>
-            <div>{t("form.nome")}</div>
-            <div>{t("form.dataNascimento")}</div>
-            <div>{t("form.carteirinha")}</div>
-            <div>{t("form.cpf")}</div>
-          </div>
-          {items.map((it) => (
-            <div className="table__row" key={it.id}>
-              <div>{it.id}</div>
-              <div>{it.nome}</div>
-              <div>{it.dataNascimento ?? "-"}</div>
-              <div>{it.carteirinha}</div>
-              <div>{it.cpf}</div>
-            </div>
-          ))}
-          {items.length === 0 && !listLoading ? (
-            <div className="table__empty">Sem dados.</div>
-          ) : null}
+
+        <div className="table-wrapper">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>{t("form.nome")}</th>
+                <th>{t("form.dataNascimento")}</th>
+                <th>{t("form.carteirinha")}</th>
+                <th>{t("form.cpf")}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {items.map((it) => (
+                <tr key={it.id}>
+                  <td>{it.id}</td>
+                  <td>{it.nome}</td>
+                  <td>{it.dataNascimento ?? "-"}</td>
+                  <td>{it.carteirinha}</td>
+                  <td>{it.cpf}</td>
+                </tr>
+              ))}
+
+              {items.length === 0 && !listLoading && (
+                <tr>
+                  <td colSpan="5" style={{ textAlign: "center" }}>
+                    Sem dados
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
       </section>
     </div>
