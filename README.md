@@ -8,6 +8,16 @@ Aplicação fullstack composta por:
 - **Backend Node (Pacientes)**: API REST (`/api/v1/pacientes`)
 - **Banco**: MySQL (compartilhado pelos dois backends)
 
+## Estrutura
+
+```
+├── app/          # React Frontend
+├── backendjs/    # Node.js API (Pacientes)
+├── backendphp/   # PHP API (Médicos)
+├── db/           # MySQL Schema + Seed
+└── docker-compose.yml
+```
+
 ## Como os serviços se comunicam
 
 - **Rede interna Docker**: os containers se resolvem por nome de serviço (ex.: `mysql`, `backend-php`, `backend-node`)
@@ -16,16 +26,31 @@ Aplicação fullstack composta por:
   - `/api/php/*` → `backend-php`
   - `/api/node/*` → `backend-node`
 
-## Execução (Docker)
+## Execução completa (Docker)
 
-Pré-requisitos:
-- Docker Desktop (com `docker compose`)
-
-Subir tudo:
+Pré-requisitos: Docker Desktop (com `docker compose`)
 
 ```bash
 docker compose up --build
 ```
+
+## Desenvolvimento local (frontend fora do Docker)
+
+Suba apenas os backends e banco:
+
+```bash
+docker compose up mysql backend-node backend-php -d
+```
+
+Inicie o frontend localmente:
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+O frontend estará disponível em: `http://localhost:5173`
 
 ## URLs
 
@@ -39,9 +64,7 @@ docker compose up --build
 ## Banco de dados
 
 - **Persistência**: volume `mysql_data`
-- **Bootstrap**: na primeira execução (volume vazio), o MySQL executa `db/init.sql` criando as tabelas:
-  - `medicos`
-  - `pacientes`
+- **Bootstrap**: na primeira execução (volume vazio), o MySQL executa `db/init.sql` criando as tabelas e inserindo médicos de exemplo
 
 ## Variáveis de ambiente
 
