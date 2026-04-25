@@ -1,9 +1,16 @@
-const PORT = Number(process.env.PORT || 3000);
 import { createApp } from "./app.js";
+import { migrate } from "./db/migrate.js";
 
-const app = createApp();
+const PORT = Number(process.env.PORT || 3000);
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`backend-node listening on :${PORT}`);
-});
+migrate()
+  .then(() => {
+    const app = createApp();
+    app.listen(PORT, () => {
+      console.log(`backend-node listening on :${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("[migrate] Falha:", err);
+    process.exit(1);
+  });

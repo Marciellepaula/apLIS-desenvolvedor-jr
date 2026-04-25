@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS medicos (
+  id       INT UNSIGNED   NOT NULL AUTO_INCREMENT,
+  nome     VARCHAR(120)   NOT NULL,
+  crm      VARCHAR(20)    NOT NULL,
+  ufcrm    CHAR(2)        NOT NULL,
+  created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP    NULL     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_medicos_crm_uf (crm, ufcrm)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
