@@ -5,7 +5,7 @@
 Suba apenas os backends e banco de dados:
 
 ```bash
-docker-compose up mysql backend-node backend-php -d
+docker compose up mysql backend-node backend-php -d
 ```
 
 ## Frontend (Local)
@@ -15,30 +15,33 @@ Instale as dependências e inicie o React:
 ```bash
 cd app
 npm install
-npm start
+npm run dev
 ```
 
-O frontend estará disponível em: http://localhost:3000
+O frontend estará disponível em: http://localhost:5173
 
-## Endpoints
+## Endpoints (portas do host)
 
-- **Backend PHP (Médicos)**: http://localhost:8001
-- **Backend Node.js (Pacientes)**: http://localhost:8000
+| Serviço              | URL                       |
+|----------------------|---------------------------|
+| Backend PHP (Médicos) | http://localhost:3002    |
+| Backend Node (Pacientes) | http://localhost:3001 |
+| MySQL                | localhost:3306            |
 
 ## Estrutura
 
 ```
-├── backend-node/     # Node.js API (Pacientes)
-├── backend-php/      # PHP API (Médicos)  
-├── app/              # React Frontend
-└── db/               # MySQL Schema
+├── backendjs/    # Node.js API (Pacientes)
+├── backendphp/   # PHP API (Médicos)
+├── app/          # React Frontend
+└── db/           # MySQL Schema
 ```
 
 ## Para parar
 
 ```bash
 # Parar backends
-docker-compose down
+docker compose down
 
 # Parar frontend (Ctrl+C no terminal)
 ```

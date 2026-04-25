@@ -1,4 +1,4 @@
-# Sistema (Fullstack Docker)
+# apLIS — Sistema Fullstack (Docker)
 
 Aplicação fullstack composta por:
 - **Frontend (SPA)**: React (Vite) servido por **Nginx**
@@ -27,9 +27,12 @@ docker compose up --build
 
 ## URLs
 
-- **Frontend**: `http://localhost:8080`
-- **API Médicos (PHP)**: `http://localhost:3002/api/v1/medicos`
-- **API Pacientes (Node)**: `http://localhost:3001/api/v1/pacientes`
+| Serviço              | URL                                         |
+|----------------------|---------------------------------------------|
+| Frontend             | `http://localhost:8080`                     |
+| API Médicos (PHP)    | `http://localhost:3002/api/v1/medicos`      |
+| API Pacientes (Node) | `http://localhost:3001/api/v1/pacientes`    |
+| MySQL                | `localhost:3306`                            |
 
 ## Banco de dados
 
@@ -41,3 +44,16 @@ docker compose up --build
 ## Variáveis de ambiente
 
 As variáveis ficam em `.env` e são usadas pelo `docker-compose.yml` (credenciais/porta do MySQL e portas expostas).
+
+## Testes
+
+```bash
+# Frontend (Vitest)
+cd app && npm test
+
+# Backend Node (Vitest)
+cd backendjs && npm test
+
+# Backend PHP (PHPUnit)
+cd backendphp && ./vendor/bin/phpunit
+```
