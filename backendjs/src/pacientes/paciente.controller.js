@@ -1,5 +1,6 @@
-import { ok, created, fail } from "../http/response.js";
+import { ok, fail } from "../http/response.js";
 import { PacienteService } from "./paciente.service.js";
+import { detectLang, translate } from "../i18n/translator.js";
 
 export class PacienteController {
   constructor() {
@@ -18,7 +19,8 @@ export class PacienteController {
   create = async (req, res, next) => {
     try {
       const data = await this.service.create(req.validated.body);
-      res.status(201).send("Paciente criado com sucesso");
+      const lang = detectLang(req);
+      res.status(201).json({ message: translate('patient.created', lang), data });
     } catch (err) {
       next(err);
     }
@@ -27,8 +29,9 @@ export class PacienteController {
   get = async (req, res, next) => {
     try {
       const data = await this.service.get(req.validated.params.id);
-      if (!data) return res.status(404).json(fail("patient.not_found"));
-      res.json(ok(data, "patient.found"));
+      const lang = detectLang(req);
+      if (!data) return res.status(404).json(fail(translate('patient.not_found', lang)));
+      res.json(ok(data, translate('patient.found', lang)));
     } catch (err) {
       next(err);
     }
@@ -37,8 +40,9 @@ export class PacienteController {
   update = async (req, res, next) => {
     try {
       const data = await this.service.update(req.validated.params.id, req.validated.body);
-      if (!data) return res.status(404).json(fail("patient.not_found"));
-      res.json(ok(data, "patient.updated"));
+      const lang = detectLang(req);
+      if (!data) return res.status(404).json(fail(translate('patient.not_found', lang)));
+      res.json(ok(data, translate('patient.updated', lang)));
     } catch (err) {
       next(err);
     }
@@ -47,11 +51,11 @@ export class PacienteController {
   remove = async (req, res, next) => {
     try {
       const okDeleted = await this.service.delete(req.validated.params.id);
-      if (!okDeleted) return res.status(404).json(fail("patient.not_found"));
-      res.json(ok(null, "patient.deleted"));
+      const lang = detectLang(req);
+      if (!okDeleted) return res.status(404).json(fail(translate('patient.not_found', lang)));
+      res.json(ok(null, translate('patient.deleted', lang)));
     } catch (err) {
       next(err);
     }
   };
 }
-

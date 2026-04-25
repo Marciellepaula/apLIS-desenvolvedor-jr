@@ -12,3 +12,12 @@ export async function createPatient(payload) {
   return data;
 }
 
+export async function updatePatient(id, payload) {
+  const { data } = await http.put(`${BASE}/${id}`, payload);
+  return data;
+}
+
+export async function deletePatient(id) {
+  const { data } = await http.delete(`${BASE}/${id}`);
+  return data;
+}

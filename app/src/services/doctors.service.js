@@ -1,6 +1,5 @@
 import { http } from "./http";
 
-// Local development endpoints
 const BASE = "http://localhost:3002/api/v1/medicos";
 
 export async function listDoctors() {
@@ -13,3 +12,12 @@ export async function createDoctor(payload) {
   return data;
 }
 
+export async function updateDoctor(id, payload) {
+  const { data } = await http.put(`${BASE}/${id}`, payload);
+  return data;
+}
+
+export async function deleteDoctor(id) {
+  const { data } = await http.delete(`${BASE}/${id}`);
+  return data;
+}

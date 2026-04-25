@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useI18n } from "../i18n/useI18n";
 
 export function AppLayout() {
-  const { t } = useI18n();
+  const { t, locale, setLocale } = useI18n();
 
   return (
     <div className="shell">
@@ -16,6 +16,20 @@ export function AppLayout() {
             {t("nav.patients")}
           </NavLink>
         </nav>
+        <div className="sidebar__lang">
+          <button
+            className={`lang-btn${locale === "pt" ? " lang-btn--active" : ""}`}
+            onClick={() => setLocale("pt")}
+          >
+            PT
+          </button>
+          <button
+            className={`lang-btn${locale === "en" ? " lang-btn--active" : ""}`}
+            onClick={() => setLocale("en")}
+          >
+            EN
+          </button>
+        </div>
       </aside>
 
       <main className="content">
@@ -24,4 +38,3 @@ export function AppLayout() {
     </div>
   );
 }
-
