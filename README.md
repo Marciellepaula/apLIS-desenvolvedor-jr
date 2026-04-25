@@ -68,7 +68,13 @@ O frontend estará disponível em: `http://localhost:5173`
 
 ## Variáveis de ambiente
 
-As variáveis ficam em `.env` e são usadas pelo `docker-compose.yml` (credenciais/porta do MySQL e portas expostas).
+Copie o arquivo de exemplo e preencha as credenciais:
+
+```bash
+cp .env.example .env
+```
+
+As variáveis controlam credenciais do MySQL e portas expostas pelo Docker.
 
 ## Testes
 
