@@ -66,14 +66,15 @@ services:
       context: ./app
       dockerfile: Dockerfile
     container_name: frontend
+    ports:
+      - "${HOST_FRONTEND_PORT}:80"
     depends_on:
       - backend-node
       - backend-php
-    ports:
-      - "${HOST_FRONTEND_PORT}:80"
     networks:
       - internal
 
+  
 networks:
   internal:
     driver: bridge

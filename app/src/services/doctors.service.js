@@ -1,9 +1,7 @@
 import { http } from "./http";
 
-// In Docker/prod, frontend Nginx proxies:
-// /api/php  -> backend-php
-// /api/node -> backend-node
-const BASE = "/api/php/api/v1/medicos";
+// Local development endpoints
+const BASE = "http://localhost:8000/api/v1/medicos";
 
 export async function listDoctors() {
   const { data } = await http.get(BASE);

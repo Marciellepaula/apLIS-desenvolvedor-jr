@@ -1,6 +1,6 @@
 import { http } from "./http";
 
-const BASE = "/api/node/api/v1/pacientes";
+const BASE = "http://localhost:8000/api/v1/pacientes";
 
 export async function listPatients() {
   const { data } = await http.get(BASE);

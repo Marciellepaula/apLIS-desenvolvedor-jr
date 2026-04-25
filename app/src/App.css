@@ -183,6 +183,10 @@
   background: #1f1f2e;
 }
 
+.table th:nth-child(5) {
+  text-align: center;
+}
+
 .table td:nth-child(5) {
   text-align: center;
 }
