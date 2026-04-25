@@ -23,3 +23,10 @@ CREATE TABLE IF NOT EXISTS pacientes (
   UNIQUE KEY uk_pacientes_cpf (cpf),
   UNIQUE KEY uk_pacientes_carteirinha (carteirinha)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT IGNORE INTO medicos (nome, crm, ufcrm) VALUES
+  ('João da Silva',   '123456', 'CE'),
+  ('Maria Santos',    '789012', 'SP'),
+  ('Carlos Oliveira', '345678', 'RJ'),
+  ('Ana Paula Costa', '901234', 'MG'),
+  ('Roberto Silva',   '567890', 'BA');
