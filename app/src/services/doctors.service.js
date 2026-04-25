@@ -1,7 +1,7 @@
 import { http } from "./http";
 
 // Local development endpoints
-const BASE = "http://localhost:8000/api/v1/medicos";
+const BASE = "http://localhost:3002/api/v1/medicos";
 
 export async function listDoctors() {
   const { data } = await http.get(BASE);

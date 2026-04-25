@@ -28,9 +28,9 @@ final class MedicoController
     {
         try {
             $medicos = $this->service->list();
-            return new Response(json_encode($medicos), 200, ['Content-Type' => 'application/json']);
+            return new Response(200, $medicos);
         } catch (PDOException $e) {
-            return new Response(json_encode(['error' => 'Failed to fetch doctors']), 500, ['Content-Type' => 'application/json']);
+            return new Response(500, ['error' => 'Failed to fetch doctors']);
         }
     }
 
@@ -79,12 +79,12 @@ final class MedicoController
         try {
             $created = $this->service->create($payload);
             $message = $this->translator->translate('doctor.created', $lang);
-            return new Response($message, 201, ['Content-Type' => 'text/plain']);
+            return new Response(201, ['message' => $message, 'data' => $created]);
         } catch (ValidationException $e) {
-            return new Response(json_encode(['error' => $e->getMessage()]), 422, ['Content-Type' => 'application/json']);
+            return new Response(422, ['error' => $e->getMessage()]);
         } catch (PDOException $e) {
             $errorMessage = $this->translator->translate('doctor.create_failed', $lang);
-            return new Response(json_encode(['error' => $errorMessage]), 500, ['Content-Type' => 'application/json']);
+            return new Response(500, ['error' => $errorMessage]);
         }
     }
 

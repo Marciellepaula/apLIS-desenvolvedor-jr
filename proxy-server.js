@@ -3,22 +3,28 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 
-// Proxy pacientes requests to Node.js backend (port 3001)
+// Add CORS headers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
+// Proxy pacientes requests to Node.js backend
 app.use('/api/v1/pacientes', createProxyMiddleware({
   target: 'http://localhost:3001',
   changeOrigin: true,
-  pathRewrite: {
-    '^/api/v1/pacientes': '/api/v1/pacientes'
-  }
 }));
 
-// Proxy medicos requests to PHP backend (port 3002)
+// Proxy medicos requests to PHP backend
 app.use('/api/v1/medicos', createProxyMiddleware({
   target: 'http://localhost:3002',
   changeOrigin: true,
-  pathRewrite: {
-    '^/api/v1/medicos': '/api/v1/medicos'
-  }
 }));
 
 const PORT = 8000;

@@ -3,7 +3,7 @@ FROM php:8.3-apache
 RUN apt-get update \
   && apt-get install -y --no-install-recommends curl unzip \
   && rm -rf /var/lib/apt/lists/* \
-  && a2enmod rewrite \
+  && a2enmod rewrite headers \
   && docker-php-ext-install pdo pdo_mysql \
   && curl -fsSL https://getcomposer.org/installer -o /tmp/composer-setup.php \
   && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
