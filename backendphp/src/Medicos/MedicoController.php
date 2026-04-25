@@ -28,7 +28,7 @@ final class MedicoController
     {
         try {
             $medicos = $this->service->list();
-            return new Response(200, $medicos);
+            return Json::ok($medicos);
         } catch (PDOException $e) {
             return new Response(500, ['error' => 'Failed to fetch doctors']);
         }

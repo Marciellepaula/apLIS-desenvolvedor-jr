@@ -9,7 +9,7 @@ export class PacienteController {
   list = async (_req, res, next) => {
     try {
       const data = await this.service.list();
-      res.json(data);
+      res.json(ok(data));
     } catch (err) {
       next(err);
     }
