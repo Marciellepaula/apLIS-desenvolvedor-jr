@@ -1,5 +1,7 @@
 # apLIS — Sistema Fullstack (Docker)
 
+![apLIS Screenshot](screenshot.png)
+
 Aplicação fullstack composta por:
 - **Frontend (SPA)**: React (Vite) servido por **Nginx**
 - **Backend PHP (Médicos)**: API REST (`/api/v1/medicos`)
